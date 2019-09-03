@@ -7,23 +7,9 @@
 <body>
     <?php
 
-    $db_user = "user1";
-    $db_pass = "vagrant";
-    $db_host = "localhost";
-    $db_name = "test_db";
-    $db_type = "mysql";
+    require_once("mydb.php");
 
-    $dsn = "$db_type:host=$db_host;dbname=$db_name;charset=utf8";
-
-    try{
-        $pdo = new PDO($dsn, $db_user, $db_pass);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-        print "接続しました...<br>";
-
-    }catch(PDOException $Exception){
-        die('エラー：'.$Exception->getMessage());
-    }
+    $pdo = db_connect();
 
     try{
         $pdo->beginTransaction();
@@ -51,6 +37,7 @@
     }
     else{
     ?>
+
     <table border="1">
     <tbody>
         <tr>
@@ -59,20 +46,25 @@
         <th>名</th>
         <th>年</th>
         </tr>
+
     <?php
         while($row = $stmh->fetch(PDO::FETCH_ASSOC)){
     ?>
+
         <tr>
         <td><?=htmlspecialchars($row['id'], ENT_QUOTES)?></td>
         <td><?=htmlspecialchars($row['last_name'], ENT_QUOTES)?></td>
         <td><?=htmlspecialchars($row['first_name'], ENT_QUOTES)?></td>
         <td><?=htmlspecialchars($row['age'], ENT_QUOTES)?></td>
         </tr>
+
     <?php
         }
     ?>
+
     </tbody>
     </table>
+
     <?php
     }
     ?>
