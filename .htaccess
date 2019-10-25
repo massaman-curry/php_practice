@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Member Only"
+AuthUserFile /var/www/passwd/htpasswd
+Require valid-user
