@@ -8,22 +8,42 @@ const BLACK = 2;
 fscanf(STDIN, "%d", $n);
 
 for($i = 0; $i < $n; $i++){
-    for($j = 0; $j < $n; $j++) $M[$i][$j] = 0; //0~$n-1というkey
+    for($j = 0; $j < $n; $j++) $adj_list[$i][$j] = 0; //0~$n-1というkey
 }
 
-for($i = 0; $i < $n; $i ++){
+for($i = 0; $i < $n; $i++){
 
-    fscanf(STDIN, "%d %d", $u, $k);
-    $u--;
-//おそらく、fscanfは一行ごとに読んでいるから、上のfscanfでまとめて$vも取得しないと行けない気がする。explodeを使うようかも？
-    for($j = 0; $j < $k; $j++){
-        fscanf(STDIN, "%d", $v);
-        $v--; //$u--と同様、一番始めに作成した$n*$n全て0の隣接行列のキーに合わせるため。
-        //デクリメントしないと、0~6の配列に1~6の配列のデータを挿入することになる。
-        $M[$u][$v] = 1;
+    $input = explode(' ', fgets(STDIN));
+    $input = array_map(function($a){
+        return (int)$a;
+    }, $input);
+    // var_dump($input);
+    $u = $input[0] - 1;
+
+    for($j= 0; $j < $input[1]; $j++){
+        $v = $input[2 + $j] - 1;
+        $adj_list[$u][$v] = 1;
     }
-
+    
 }
+
+var_dump($adj_list);
+
+// var_dump($adj_list);
+
+// for($i = 0; $i < $n; $i ++){
+
+//     fscanf(STDIN, "%d %d", $u, $k);
+//     $u--;
+// //おそらく、fscanfは一行ごとに読んでいるから、上のfscanfでまとめて$vも取得しないと行けない気がする。explodeを使うようかも？
+//     for($j = 0; $j < $k; $j++){
+//         fscanf(STDIN, "%d", $v);
+//         $v--; //$u--と同様、一番始めに作成した$n*$n全て0の隣接行列のキーに合わせるため。
+//         //デクリメントしないと、0~6の配列に1~6の配列のデータを挿入することになる。
+//         $M[$u][$v] = 1;
+//     }
+
+// }
 
 
 // function dfs_visit($u){
